@@ -26,9 +26,20 @@
     )
   )
 )
+
+(defn my-merge-sort
+  "Clojure implementation of Merge Sort."
   [x]
-  (println "Not Implemented")
+  (if (= 1 (count x))
+    x
+    (let [[left right] (split-at (/ (count x) 2) x)]
+      (my-merge
+        (my-merge-sort left)
+        (my-merge-sort right)
+      )
+    )
   )
+)
 
 (defn my-merge
   "Merges two ascending order lists in order"
