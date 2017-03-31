@@ -53,11 +53,20 @@
   (println "Not Implemented")
   )
 
+(defn my-reverse-aux
+  "Reverses a list passed"
+  [x]
+  (if (empty? x)
+    []
+    (conj (my-reverse-aux (rest x)) (first x))
+  )
+)
+
 (defn my-reverse
   "Reverses a list passed"
   [x]
-  (println "Not Implemented")
-  )
+  (seq (my-reverse-aux x))
+)
 
 (defn -main
   "Run basic tests"
