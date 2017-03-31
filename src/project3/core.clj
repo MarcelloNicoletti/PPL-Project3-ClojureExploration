@@ -2,6 +2,13 @@
 
 (defn my-pas-tri
   "Gets a value from Pascal's Triangle"
+  [n k]
+  (if (or (= k 0) (= n k))
+    1
+    (+ (my-pas-tri (- n 1) (- k 1)) (my-pas-tri (- n 1) k))
+  )
+)
+
   [x]
   (println "Not Implemented")
   )
