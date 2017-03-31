@@ -41,18 +41,6 @@
   )
 )
 
-(defn my-merge
-  "Merges two ascending order lists in order"
-  [x]
-  (println "Not Implemented")
-  )
-
-(defn my-merge-sort
-  "Clojure implementation of Merge Sort"
-  [x]
-  (println "Not Implemented")
-  )
-
 (defn my-build-bst
   "Builds a BST from a list"
   [x]
