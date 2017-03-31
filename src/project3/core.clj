@@ -75,18 +75,18 @@
   (println "Merge sort for randomized (0 1 2 3 4 5 6 7 8 9 10)")
   (let [test (shuffle (range 11))]
     (println (str "Before = " test))
-    (println (my-merge-sort test))
+    (println (str "After  = " (my-merge-sort test)))
   )
   (println)
   (println "Building a BST from (0 1 2 3 4 5 6 7)")
   (println (my-build-bst (range 8)))
   (println)
-  (println "Traversing bst in order from randomized initial built BST.")
+  (println "Traversing BST in order from randomized initial built BST.")
   (let [test (my-build-bst (shuffle (range 8)))]
     (println (str "Initial bst" test))
     (println (my-iot test))
-    )
+  )
   (println)
-  (println "Reversing (0 1 2 3 4 5 6 7 8 9 10)")'
+  (println "Reversing (0 1 2 3 4 5 6 7 8 9 10)")
   (println (my-reverse (range 11)))
 )
