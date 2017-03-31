@@ -9,6 +9,23 @@
   )
 )
 
+(defn my-merge
+  "Merges two ascending order lists in order."
+  [x y]
+  (if (= x '())
+    ;; x is empty return y (which still may be empty)
+    y
+    (if (= y '())
+      ;; y is empty return x
+      x
+      ;; They're both populated, merge them
+      (if (< (first x) (first y))
+        (cons (first x) (my-merge (rest x) y))
+        (cons (first y) (my-merge x (rest y)))
+      )
+    )
+  )
+)
   [x]
   (println "Not Implemented")
   )
