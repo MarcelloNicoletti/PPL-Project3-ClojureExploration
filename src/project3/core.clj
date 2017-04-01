@@ -57,7 +57,7 @@
   "Reverses a list passed"
   [x]
   (if (empty? x)
-    []
+    [] ;; Return an empty vector. Vector's conj side is the back
     (conj (my-reverse-aux (rest x)) (first x))
   )
 )
@@ -79,7 +79,7 @@
   (println (map #(my-pas-tri 4 %) (range 5)))
   (println)
   (println (str "Merging (1 3 5 7 9) and (0 2 4 6 8 10)"))
-  (println (my-merge '(1 3 5 7 9) '(0 2 4 6 8 10)))
+  (println (my-merge (filter odd? (range 11)) (filter even? (range 11))))
   (println)
   (println "Merge sort for randomized (0 1 2 3 4 5 6 7 8 9 10)")
   (let [test (shuffle (range 11))]
