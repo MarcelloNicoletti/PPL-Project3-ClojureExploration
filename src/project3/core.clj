@@ -68,6 +68,15 @@
   (seq (my-reverse-aux x))
 )
 
+(defn my-fib
+  "Recursive Fib sequence"
+  [x]
+  (if (<= x 1)
+    1
+    (+ (my-fib (- x 1)) (my-fib (- x 2)))
+  )
+)
+
 (defn -main
   "Run basic tests"
   [& args]
