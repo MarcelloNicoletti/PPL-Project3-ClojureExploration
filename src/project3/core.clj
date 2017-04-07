@@ -1,11 +1,37 @@
 (ns project3.core)
 
+(defn my-pas-tri-row-aux
+  "Adds the pairs of numbers together."
+  [x]
+  (if (= 1 (count x))
+    x
+    (cons (+ (first x) (second x)) (my-pas-tri-row-aux (rest x)))
+  )
+)
+
+(defn my-pas-tri-row
+  "Gets a list representing a row in Pascal's Triangle"
+  [n]
+  (cond
+    (< n 0) nil
+    (= n 0) '(1)
+    :else
+      (my-pas-tri-row-aux (cons 0 (my-pas-tri-row (- n 1))))
+  )
+)
+
 (defn my-pas-tri
+  "Gets a value from Pascal's Triangle by first calcjulating the row."
+  [n k]
+  (nth (my-pas-tri-row n) k)
+)
+
+(defn my-pas-tri-recursive
   "Gets a value from Pascal's Triangle"
   [n k]
   (if (or (= k 0) (= n k))
     1
-    (+ (my-pas-tri (- n 1) (- k 1)) (my-pas-tri (- n 1) k))
+    (+ (my-pas-tri-recursive (- n 1) (- k 1)) (my-pas-tri-recursive (- n 1) k))
   )
 )
 
@@ -97,7 +123,7 @@
   )
   (println)
   (println "Building a BST from (0 1 2 3 4 5 6 7)")
-  (println (my-build-bst (range 8)))
+  (println (my-build-bst (shuffle (range 8))))
   (println)
   (println "Traversing BST in order from randomized initial built BST.")
   (let [test (my-build-bst (shuffle (range 8)))]
