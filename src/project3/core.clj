@@ -76,8 +76,11 @@
 (defn my-build-bst
   "Builds a BST from a list"
   [x]
-  (println "Not Implemented")
+  (if (= 1 (count x))
+    (my-new-node (last x))
+    (my-insert-bst (last x) (my-build-bst (butlast x)))
   )
+)
 
 (defn my-iot
   "In order traversal of a tree produced by my-build-bst"
