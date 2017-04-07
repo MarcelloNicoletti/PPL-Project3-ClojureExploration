@@ -78,7 +78,6 @@
   [x node]
   (if (= 3 (count node))
     (let [key (first node) left (nth node 1) right (nth node 2)]
-      ;; (println "key=" key ", left=" left ", right=" right)
       (cond
         (< x key)
           (if (empty? left)
