@@ -143,7 +143,8 @@
   (println "Getting the 5th row, 4th spot from Pascals Triangle.")
   (println (str "Value = " (my-pas-tri 5 4) ", should be 5."))
   (println "Printing the whole 4th row.")
-  (println (map #(my-pas-tri 4 %) (range 5)))
+  ;; (println (map #(my-pas-tri 4 %) (range 5)))
+  (println (my-pas-tri-row 4))
   (println)
   (println (str "Merging (1 3 5 7 9) and (0 2 4 6 8 10)"))
   (println (my-merge (filter odd? (range 11)) (filter even? (range 11))))
@@ -159,7 +160,7 @@
   (println)
   (println "Traversing BST in order from randomized initial built BST.")
   (let [test (my-build-bst (shuffle (range 8)))]
-    (println (str "Initial bst" test))
+    (println (str "Initial bst " test))
     (println (my-iot test))
   )
   (println)
