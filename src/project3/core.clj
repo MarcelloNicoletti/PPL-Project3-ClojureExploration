@@ -67,11 +67,35 @@
   )
 )
 
+(defn my-new-node
+  "Makes a new node list form."
+  [x]
+  (cons x (cons '() (cons '() '())))
+)
+
 (defn my-insert-bst
   "Helper function to my-build-bst. performs recursive insert"
   [x node]
-  (println "Not Implemented")
+  (if (= 3 (count node))
+    (let [key (first node) left (nth node 1) right (nth node 2)]
+      ;; (println "key=" key ", left=" left ", right=" right)
+      (cond
+        (< x key)
+          (if (empty? left)
+            (cons key (cons (my-new-node x) (cons right '())))
+            (cons key (cons (my-insert-bst x left) (cons right '())))
+          )
+        (> x key)
+        (if (empty? right)
+          (cons key (cons left (cons (my-new-node x) '())))
+          (cons key (cons left (cons (my-insert-bst x right) '())))
+        )
+        :else
+          node
+      )
+    )
   )
+)
 
 (defn my-build-bst
   "Builds a BST from a list"
