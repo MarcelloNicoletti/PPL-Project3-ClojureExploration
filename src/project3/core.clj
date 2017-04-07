@@ -67,6 +67,12 @@
   )
 )
 
+(defn my-insert-bst
+  "Helper function to my-build-bst. performs recursive insert"
+  [x node]
+  (println "Not Implemented")
+  )
+
 (defn my-build-bst
   "Builds a BST from a list"
   [x]
