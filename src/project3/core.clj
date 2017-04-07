@@ -107,9 +107,14 @@
 
 (defn my-iot
   "In order traversal of a tree produced by my-build-bst"
-  [x]
-  (println "Not Implemented")
+  [node]
+  (if (= 3 (count node))
+    (let [key (first node) left (nth node 1) right (nth node 2)]
+      (concat (my-iot left) (cons key (my-iot right)))
+    )
+    ()
   )
+)
 
 (defn my-reverse-aux
   "Reverses a list passed"
