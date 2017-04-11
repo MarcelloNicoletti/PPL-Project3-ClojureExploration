@@ -70,7 +70,7 @@
   )
 )
 
-(defn my-new-node
+(defn bst-new-node
   "Makes a new node list form."
   [x]
   (list x nil nil)
@@ -84,12 +84,12 @@
       (cond
         (< x key)
           (if (empty? left)
-            (list key (my-new-node x) right)
+            (list key (bst-new-node x) right)
             (list key (my-bst-insert x left) right)
           )
         (> x key)
         (if (empty? right)
-          (list key left (my-new-node x))
+          (list key left (bst-new-node x))
           (list key left (my-bst-insert x right))
         )
         :else
@@ -103,17 +103,17 @@
   "Builds a BST from a list"
   [x]
   (if (= 1 (count x))
-    (my-new-node (last x))
+    (bst-new-node (last x))
     (my-bst-insert (last x) (my-build-bst (butlast x)))
   )
 )
 
-(defn my-iot
+(defn my-bst-in-order
   "In order traversal of a tree produced by my-build-bst"
   [node]
   (if (= 3 (count node))
     (let [key (nth node 0) left (nth node 1) right (nth node 2)]
-      (concat (my-iot left) (cons key (my-iot right)))
+      (concat (my-bst-in-order left) (cons key (my-bst-in-order right)))
     )
     ()
   )
@@ -151,7 +151,7 @@
   (println "Getting the 5th row, 4th spot from Pascals Triangle.")
   (println (str "Value = " (my-pas-tri 5 4) ", should be 5."))
   (println "Printing the whole 4th row.")
-  ;; (println (map #(my-pas-tri 4 %) (range 5)))
+  ;; (println (map #(my-pas-tri-recursive 4 %) (range 5)))
   (println (my-pas-tri-row 4))
   (println)
   (println (str "Merging (1 3 5 7 9) and (0 2 4 6 8 10)"))
@@ -169,7 +169,7 @@
   (println "Traversing BST in order from randomized initial built BST.")
   (let [test (my-build-bst (shuffle (range 8)))]
     (println (str "Initial bst " test))
-    (println (my-iot test))
+    (println (my-bst-in-order test))
   )
   (println)
   (println "Reversing (0 1 2 3 4 5 6 7 8 9 10)")
