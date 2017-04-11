@@ -14,9 +14,9 @@
   [n]
   (cond
     (< n 0) nil
-    (= n 0) '(1)
+    (= n 0) '(1N)
     :else
-      (my-add-in-pairs (cons 0 (my-pas-tri-row (- n 1))))
+      (my-add-in-pairs (cons 0N (my-pas-tri-row (- n 1))))
   )
 )
 
