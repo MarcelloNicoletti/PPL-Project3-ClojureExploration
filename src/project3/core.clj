@@ -29,6 +29,13 @@
   )
 )
 
+(defn pad
+  "Returns a collection n long from coll, padded with val"
+  [n val coll]
+  ;; repeat and concat are lazy sequences so stop once take is satisfied
+  (take n (concat coll (repeat val)))
+)
+
 (defn my-pas-tri
   "Gets a value from Pascal's Triangle by first calculating the row."
   [n k]
