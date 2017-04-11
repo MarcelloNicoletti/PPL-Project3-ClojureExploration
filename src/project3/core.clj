@@ -76,7 +76,7 @@
   (cons x (cons '() (cons '() '())))
 )
 
-(defn my-insert-bst
+(defn my-bst-insert
   "Helper function to my-build-bst. performs recursive insert"
   [x node]
   (if (= 3 (count node))
@@ -85,12 +85,12 @@
         (< x key)
           (if (empty? left)
             (cons key (cons (my-new-node x) (cons right '())))
-            (cons key (cons (my-insert-bst x left) (cons right '())))
+            (cons key (cons (my-bst-insert x left) (cons right '())))
           )
         (> x key)
         (if (empty? right)
           (cons key (cons left (cons (my-new-node x) '())))
-          (cons key (cons left (cons (my-insert-bst x right) '())))
+          (cons key (cons left (cons (my-bst-insert x right) '())))
         )
         :else
           node
@@ -104,7 +104,7 @@
   [x]
   (if (= 1 (count x))
     (my-new-node (last x))
-    (my-insert-bst (last x) (my-build-bst (butlast x)))
+    (my-bst-insert (last x) (my-build-bst (butlast x)))
   )
 )
 
