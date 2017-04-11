@@ -73,7 +73,7 @@
 (defn my-new-node
   "Makes a new node list form."
   [x]
-  (cons x (cons '() (cons '() '())))
+  (cons x (cons nil (cons nil '())))
 )
 
 (defn my-bst-insert
@@ -83,7 +83,7 @@
     (let [key (nth node 0) left (nth node 1) right (nth node 2)]
       (cond
         (< x key)
-          (if (empty? left)
+          (if (nil? left)
             (cons key (cons (my-new-node x) (cons right '())))
             (cons key (cons (my-bst-insert x left) (cons right '())))
           )
