@@ -1,11 +1,11 @@
 (ns project3.core)
 
-(defn my-pas-tri-row-aux
+(defn my-add-in-pairs
   "Adds the pairs of numbers together."
   [x]
   (if (= 1 (count x))
     x
-    (cons (+ (first x) (second x)) (my-pas-tri-row-aux (rest x)))
+    (cons (+ (first x) (second x)) (my-add-in-pairs (rest x)))
   )
 )
 
@@ -16,7 +16,7 @@
     (< n 0) nil
     (= n 0) '(1)
     :else
-      (my-pas-tri-row-aux (cons 0 (my-pas-tri-row (- n 1))))
+      (my-add-in-pairs (cons 0 (my-pas-tri-row (- n 1))))
   )
 )
 
