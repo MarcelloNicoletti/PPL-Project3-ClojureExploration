@@ -1,13 +1,22 @@
 (ns project3.core)
 
-(defn my-add-in-pairs
+(defn add-pairs
   "Adds the pairs of numbers together."
   [x]
   (if (= 1 (count x))
     x
-    (cons (+ (first x) (second x)) (my-add-in-pairs (rest x)))
+    (cons (+ (first x) (second x)) (add-pairs (rest x)))
   )
 )
+
+(defn add-pairs*
+  "Adds the pairs of numbers together from the back."
+  [x]
+  (if (= 1 (count x))
+    (vec x)
+    (conj (add-pairs* (butlast x)) (+ (last x) (last (butlast x))))
+    )
+  )
 
 (defn my-pas-tri-row
   "Gets a list representing a row in Pascal's Triangle"
@@ -16,7 +25,7 @@
     (< n 0) nil
     (= n 0) '(1N)
     :else
-      (my-add-in-pairs (cons 0N (my-pas-tri-row (- n 1))))
+      (add-pairs (cons 0N (my-pas-tri-row (- n 1))))
   )
 )
 
