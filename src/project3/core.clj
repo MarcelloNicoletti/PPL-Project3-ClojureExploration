@@ -21,20 +21,11 @@
 )
 
 (defn my-pas-tri
-  "Gets a value from Pascal's Triangle by first calcjulating the row."
+  "Gets a value from Pascal's Triangle by first calculating the row."
   [n k]
   (if (< n k)
     nil
     (nth (my-pas-tri-row n) k)
-  )
-)
-
-(defn my-pas-tri-recursive
-  "Gets a value from Pascal's Triangle"
-  [n k]
-  (if (or (= k 0) (= n k))
-    1
-    (+ (my-pas-tri-recursive (- n 1) (- k 1)) (my-pas-tri-recursive (- n 1) k))
   )
 )
 
