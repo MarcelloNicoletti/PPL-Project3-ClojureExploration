@@ -80,7 +80,7 @@
   "Helper function to my-build-bst. performs recursive insert"
   [x node]
   (if (= 3 (count node))
-    (let [key (first node) left (nth node 1) right (nth node 2)]
+    (let [key (nth node 0) left (nth node 1) right (nth node 2)]
       (cond
         (< x key)
           (if (empty? left)
@@ -112,7 +112,7 @@
   "In order traversal of a tree produced by my-build-bst"
   [node]
   (if (= 3 (count node))
-    (let [key (first node) left (nth node 1) right (nth node 2)]
+    (let [key (nth node 0) left (nth node 1) right (nth node 2)]
       (concat (my-iot left) (cons key (my-iot right)))
     )
     ()
