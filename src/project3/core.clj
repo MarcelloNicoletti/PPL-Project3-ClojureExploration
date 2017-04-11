@@ -23,7 +23,10 @@
 (defn my-pas-tri
   "Gets a value from Pascal's Triangle by first calcjulating the row."
   [n k]
-  (nth (my-pas-tri-row n) k)
+  (if (< n k)
+    nil
+    (nth (my-pas-tri-row n) k)
+  )
 )
 
 (defn my-pas-tri-recursive
