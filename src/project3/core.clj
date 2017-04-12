@@ -46,12 +46,32 @@
   )
 )
 
+(defn my-pas-tri-row*
+  "Gets part of the list representing a row in Pascal's Triangle"
+  ([n k]
+    (my-do-times add-pairs* n (pad (+ k 1) 0N '(1N)))
+  )
+  ([n]
+    (my-pas-tri-row* n (+ n 1))
+  )
+)
+
 (defn my-pas-tri
   "Gets a value from Pascal's Triangle by first calculating the row."
   [n k]
   (if (< n k)
     nil
     (nth (my-pas-tri-row n) k)
+    )
+  )
+
+(defn my-pas-tri*
+  "Gets a value from Pascal's Triangle by first calculating the row."
+  [n k]
+  (cond
+    (< n k) nil
+    (> k (/ n 2)) (nth (my-pas-tri-row* n (- n k)) (- n k))
+    :else (nth (my-pas-tri-row* n k) k)
   )
 )
 
