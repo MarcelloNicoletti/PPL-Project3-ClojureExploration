@@ -47,12 +47,9 @@
 )
 
 (defn my-pas-tri-row*
-  "Gets a list representing a row in Pascal's Triangle"
+  "Gets part of the list representing a row in Pascal's Triangle"
   ([n k]
-    (if (>= 0 n)
-      '(1N)
-      (add-pairs* (pad (+ (min k n) 1) 0N (my-pas-tri-row* (- n 1) k)))
-    )
+    (my-do-times add-pairs* n (pad (+ k 1) 0N '(1N)))
   )
   ([n]
     (my-pas-tri-row* n (+ n 1))
