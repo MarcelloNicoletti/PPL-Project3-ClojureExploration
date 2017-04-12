@@ -36,6 +36,16 @@
   (take n (concat coll (repeat val)))
 )
 
+(defn my-do-times
+  "Repetedly applys f to the result of the last call"
+  [f n x]
+  (cond
+    (> n 1) (f (my-do-times f (- n 1) x))
+    (= n 1) (f x)
+    :else x
+  )
+)
+
 (defn my-pas-tri
   "Gets a value from Pascal's Triangle by first calculating the row."
   [n k]
