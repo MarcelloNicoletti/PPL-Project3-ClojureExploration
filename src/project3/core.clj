@@ -1,31 +1,31 @@
 (ns project3.core)
 
+;; note that the function "+'" does the same as "+" but
+;; it automaticaly promotes numbers to BigInt as needed.
+
 (defn add-pairs
   "Adds the pairs of numbers together."
   [x]
   (if (= 1 (count x))
     x
-    (cons (+ (first x) (second x)) (add-pairs (rest x)))
+    (cons (+' (first x) (second x)) (add-pairs (rest x)))
   )
 )
 
-(defn add-pairs*
+(defn add-pairs'
   "Adds the pairs of numbers together from the back."
   [x]
-  (if (= 1 (count x))
-    (vec x)
-    (conj (add-pairs* (butlast x)) (+ (last x) (last (butlast x))))
-    )
-  )
+  (reverse (add-pairs (reverse x)))
+)
 
 (defn my-pas-tri-row
   "Gets a list representing a row in Pascal's Triangle"
   [n]
   (cond
     (< n 0) nil
-    (= n 0) '(1N)
+    (= n 0) '(1)
     :else
-      (add-pairs (cons 0N (my-pas-tri-row (- n 1))))
+      (add-pairs (cons 0 (my-pas-tri-row (- n 1))))
   )
 )
 
@@ -36,23 +36,16 @@
   (take n (concat coll (repeat val)))
 )
 
-(defn my-do-times
-  "Repetedly applys f to the result of the last call"
-  [f n x]
-  (cond
-    (> n 1) (f (my-do-times f (- n 1) x))
-    (= n 1) (f x)
-    :else x
-  )
-)
-
-(defn my-pas-tri-row*
-  "Gets part of the list representing a row in Pascal's Triangle"
+(defn my-pas-tri-row'
+  "Gets a list representing a row in Pascal's Triangle"
   ([n k]
-    (my-do-times add-pairs* n (pad (+ k 1) 0N '(1N)))
+    (if (>= 0 n)
+      '(1)
+      (add-pairs' (pad (+ (min k n) 1) 0 (my-pas-tri-row' (- n 1) k)))
+    )
   )
   ([n]
-    (my-pas-tri-row* n (+ n 1))
+    (my-pas-tri-row' n (+ n 1))
   )
 )
 
@@ -65,23 +58,23 @@
     )
   )
 
-(defn my-pas-tri*
+(defn my-pas-tri'
   "Gets a value from Pascal's Triangle by first calculating the row."
   [n k]
   (cond
     (< n k) nil
-    (> k (/ n 2)) (nth (my-pas-tri-row* n (- n k)) (- n k))
-    :else (nth (my-pas-tri-row* n k) k)
+    (> k (/ n 2)) (nth (my-pas-tri-row' n (- n k)) (- n k))
+    :else (nth (my-pas-tri-row' n k) k)
   )
 )
 
 (defn my-merge
   "Merges two ascending order lists in order."
   [x y]
-  (if (= x '())
+  (if (empty? x)
     ;; x is empty return y (which still may be empty)
     y
-    (if (= y '())
+    (if (empty? y)
       ;; y is empty return x
       x
       ;; They're both populated, merge them
