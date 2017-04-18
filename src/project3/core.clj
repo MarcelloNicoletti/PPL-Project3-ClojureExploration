@@ -1,10 +1,11 @@
 (ns project3.core)
 
-;; note that the function "+'" does the same as "+" but
+;; Note that the function "+'" does the same as "+" but
 ;; it automaticaly promotes numbers to BigInt as needed.
 
 (defn add-pairs
-  "Adds the pairs of numbers together."
+  "Adds the pairs of numbers together.
+    Starts at the front and leaves the last alone."
   [x]
   (if (= 1 (count x))
     x
@@ -12,14 +13,15 @@
   )
 )
 
-(defn add-pairs'
-  "Adds the pairs of numbers together from the back."
+(defn add-pairs-rev
+  "Adds the pairs of numbers together.
+    Starts at the back and leaves the first alone."
   [x]
   (reverse (add-pairs (reverse x)))
 )
 
 (defn my-pas-tri-row
-  "Gets a list representing a row in Pascal's Triangle"
+  "Gets a list representing a row in Pascal's Triangle using recursion."
   [n]
   (cond
     (< n 0) nil
@@ -29,28 +31,38 @@
   )
 )
 
-(defn pad
-  "Returns a collection n long from coll, padded with val"
+(defn take-or-pad
+  "Returns a collection with n items taken from coll,
+    padded with val if needed."
   [n val coll]
-  ;; repeat and concat are lazy sequences so stop once take is satisfied
+  ;; repeat and concat are lazy sequences and stop once take is satisfied
   (take n (concat coll (repeat val)))
 )
 
-(defn my-pas-tri-row'
-  "Gets a list representing a row in Pascal's Triangle"
-  ([n k]
-    (if (>= 0 n)
-      '(1)
-      (add-pairs' (pad (+ (min k n) 1) 0 (my-pas-tri-row' (- n 1) k)))
+(defn my-pas-tri-row-fast
+  "Gets a list representing a row in Pascal's Triangle,
+    optionally only generates first k values in row."
+  ([n k] ;; only generates rows up to k long, saving lots of time.
+    (cond
+      (< n 0) nil
+      (= n 0) '(1)
+      :else
+        (add-pairs-rev (take-or-pad
+                         (+ (min k n) 1)
+                         0
+                         (my-pas-tri-row-fast (- n 1) k)
+                       )
+        )
     )
   )
-  ([n]
-    (my-pas-tri-row' n (+ n 1))
+  ([n] ;; If no k is specified, get whole row.
+    (my-pas-tri-row-fast n (+ n 1))
   )
 )
 
 (defn my-pas-tri
-  "Gets a value from Pascal's Triangle by first calculating the row."
+  "Gets a value from Pascal's Triangle
+    by first calculating the row."
   [n k]
   (if (< n k)
     nil
@@ -58,13 +70,15 @@
     )
   )
 
-(defn my-pas-tri'
-  "Gets a value from Pascal's Triangle by first calculating the row."
+(defn my-pas-tri-fast
+  "Gets a value from Pascal's Triangle
+    by first calculating the row using the fast method."
   [n k]
   (cond
     (< n k) nil
-    (> k (/ n 2)) (nth (my-pas-tri-row' n (- n k)) (- n k))
-    :else (nth (my-pas-tri-row' n k) k)
+    ;; Since rows are symetric I can save time by dealing with the first half.
+    (> k (/ n 2)) (nth (my-pas-tri-row-fast n (- n k)) (- n k))
+    :else (nth (my-pas-tri-row-fast n k) k)
   )
 )
 
@@ -107,13 +121,13 @@
 )
 
 (defn my-bst-insert
-  "Helper function to my-build-bst. performs recursive insert"
+  "Inserts a value into the binary search (sub-)tree given by node."
   [x node]
   (if (= 3 (count node))
     (let [key (nth node 0) left (nth node 1) right (nth node 2)]
       (cond
         (< x key)
-          (if (empty? left)
+          (if (empty? left) ;; both nil and '() are "emtpy" by this predicate
             (list key (bst-new-node x) right)
             (list key (my-bst-insert x left) right)
           )
@@ -130,7 +144,7 @@
 )
 
 (defn my-build-bst
-  "Builds a BST from a list"
+  "Builds a binary search tree from a list."
   [x]
   (if (= 1 (count x))
     (bst-new-node (last x))
@@ -139,7 +153,7 @@
 )
 
 (defn my-bst-in-order
-  "In order traversal of a tree produced by my-build-bst"
+  "In order traversal of a binary search tree produced by my-build-bst"
   [node]
   (if (= 3 (count node))
     (let [key (nth node 0) left (nth node 1) right (nth node 2)]
@@ -149,27 +163,27 @@
   )
 )
 
-(defn my-reverse-aux
-  "Reverses a list passed"
-  [x]
-  (if (empty? x)
-    [] ;; Return an empty vector. Vector's conj side is the back
-    (conj (my-reverse-aux (rest x)) (first x))
-  )
+(defn my-tree-sort
+  "Sorts coll using a binary search tree. Note that this removes duplicates."
+  [coll]
+  (my-bst-in-order (my-build-bst coll))
 )
 
 (defn my-reverse
-  "Reverses a list passed"
-  [x]
-  (seq (my-reverse-aux x))
+  "Reverses coll. Returns a vector."
+  [coll]
+  (if (empty? coll)
+    [] ;; Return an empty vector. Vector's conj side is the back
+    (conj (my-reverse (rest coll)) (first coll))
+  )
 )
 
 (defn my-fib
-  "Recursive Fib sequence"
-  [x]
-  (if (<= x 1)
+  "Recursively finds the nth fibonacci number."
+  [n]
+  (if (<= n 1)
     1
-    (+ (my-fib (- x 1)) (my-fib (- x 2)))
+    (+ (my-fib (- n 1)) (my-fib (- n 2)))
   )
 )
 
