@@ -170,11 +170,15 @@
 )
 
 (defn my-reverse
-  "Reverses coll. Returns a vector."
-  [coll]
-  (if (empty? coll)
-    [] ;; Return an empty vector. Vector's conj side is the back
-    (conj (my-reverse (rest coll)) (first coll))
+  "Reverses coll."
+  ([dst src]
+    (if (empty? src)
+      dst
+      (my-reverse (cons (first src) dst) (rest src))
+    )
+  )
+  ([coll]
+    (my-reverse () coll)
   )
 )
 
